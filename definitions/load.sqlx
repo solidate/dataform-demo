@@ -1,16 +1,19 @@
--- This is an example SQLX file to help you learn the basics of Dataform.
--- Visit https://cloud.google.com/dataform/docs/sql-workflows for more information on how to configure your SQL workflow.
-
--- You can delete this file, then commit and push your changes to your repository when you are ready.
-
--- Config blocks allow you to configure, document, and test your data assets.
 config {
   type: "view",
   database: "fmcc-mlops",
   schema: "dataform",
   name: "base",
+  assertions: {
+    nonNull: ["age_in_years", "property"],
+  }
 }
 
--- The rest of a SQLX file contains your SELECT statement used to create the table.
-
-SELECT * FROM ${constants.dataset_name}.${constants.base_table}
+  -- This is an example SQLX file to help you learn the basics of Dataform.
+  -- Visit https://cloud.google.com/dataform/docs/sql-workflows for more information on how to configure your SQL workflow.
+  -- You can delete this file, then commit and push your changes to your repository when you are ready.
+  -- Config blocks allow you to configure, document, and test your data assets.
+  -- The rest of a SQLX file contains your SELECT statement used to create the table.
+SELECT
+  *
+FROM
+  ${constants.dataset_name}.${constants.base_table} WHERE splits!='VALIDATE'
