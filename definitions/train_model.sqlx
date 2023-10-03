@@ -1,0 +1,17 @@
+config {
+  type: "operations",
+  database: "fmcc-mlops",
+  schema: "dataform"
+}
+
+CREATE MODEL IF NOT EXISTS
+  ${constants.dataset_name}.${constants.model_name} OPTIONS(MODEL_TYPE='LOGISTIC_REG',
+    INPUT_LABEL_COLS=['${constants.target}'],
+    OPTIMIZE_STRATEGY = 'BATCH_GRADIENT_DESCENT',
+    CATEGORY_ENCODING_METHOD='DUMMY_ENCODING',
+    CALCULATE_P_VALUES=TRUE,
+    -- MODEL_REGISTRY='vertex_ai',
+    ENABLE_GLOBAL_EXPLAIN=TRUE
+    )
+    AS
+    SELECT * FROM ${ref(constants.train_table)};

@@ -1,0 +1,13 @@
+config {
+  type: "table",
+  database: "fmcc-mlops",
+  schema: "dataform",
+  name: constants.test_table,
+}
+
+SELECT
+  * EXCEPT(${constants.split_column})
+FROM
+  ${ref("base")}
+WHERE
+  ${constants.split_column}!="TRAIN"

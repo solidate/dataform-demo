@@ -1,0 +1,6 @@
+{
+  "name": "bigquery-e2e-dataform",
+  "dependencies": {
+    "@dataform/core": "2.4.2"
+  }
+}

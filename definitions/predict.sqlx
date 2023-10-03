@@ -1,0 +1,17 @@
+config {
+  type: "table",
+  database: "fmcc-mlops",
+  schema: "dataform",
+  dependencies: ["train_model", constants.test_table]
+}
+
+SELECT
+  *
+FROM
+  ML.PREDICT(MODEL ${constants.dataset_name}.${constants.model_name},
+    (
+    SELECT
+      * EXCEPT (${constants.target})
+    FROM
+      ${constants.dataset_name}.${constants.test_table}),
+    STRUCT(0.55 AS threshold))
